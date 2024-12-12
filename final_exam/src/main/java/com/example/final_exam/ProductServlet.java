@@ -31,6 +31,8 @@ public class ProductServlet extends HttpServlet {
                 break;
             case "remove-product":
                 removeProduct(req, resp);
+                break;
+
             default:
                 showAllProducts(req, resp);
                 break;
@@ -49,6 +51,9 @@ public class ProductServlet extends HttpServlet {
             case "add-product":
                 addProduct(req, resp);
                 break;
+            case "find-product":
+                findProduct(req, resp);
+                break;
             default:
                 break;
         }
@@ -59,11 +64,13 @@ public class ProductServlet extends HttpServlet {
         req.setAttribute("products", products);
         req.getRequestDispatcher("product_display.jsp").forward(req, resp);
     }
+
     private void showAddProduct(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<Category> categories = repository.showAllCategories();
         req.setAttribute("categories", categories);
         req.getRequestDispatcher("add_product.jsp").forward(req, resp);
     }
+
     private void addProduct(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String name = req.getParameter("name");
         double price = Double.parseDouble(req.getParameter("price"));
@@ -83,6 +90,7 @@ public class ProductServlet extends HttpServlet {
             out.println("</body></html>");
         }
     }
+
     private void removeProduct(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int productID = Integer.parseInt(req.getParameter("productID"));
         boolean isRemoved = repository.removeProduct(productID);
@@ -94,5 +102,35 @@ public class ProductServlet extends HttpServlet {
             out.println("<a href='/product_servlet'>Go Back</a>");
             out.println("</body></html>");
         }
+    }
+
+    private void findProduct(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String name = req.getParameter("name");
+        double price;
+        int quantity;
+        if (req.getParameter("price") != null && !req.getParameter("price").isEmpty()) {
+            price = Double.parseDouble(req.getParameter("price"));
+        } else {
+            price = 0;
+        }
+        if (req.getParameter("quantity") != null && !req.getParameter("quantity").isEmpty()) {
+            quantity = Integer.parseInt(req.getParameter("quantity"));
+        } else {
+            quantity = 0;
+        }
+        String color = req.getParameter("color");
+        String category = req.getParameter("category");
+        int categoryID = -1;
+
+        List<Category> categories = repository.showAllCategories();
+        for (Category categoryItem : categories) {
+            if (categoryItem.getCategoryName().equals(category)) {
+                categoryID = categoryItem.getCategoryID();
+                break;
+            }
+        }
+        List<Product> products = repository.findProduct(name, price, quantity, color, categoryID);
+        req.setAttribute("products", products);
+        req.getRequestDispatcher("product_display.jsp").forward(req, resp);
     }
 }

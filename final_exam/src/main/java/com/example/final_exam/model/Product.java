@@ -12,6 +12,8 @@ public class Product {
     private String description;
     private int categoryID;
 
+    public Product() {}
+
     public Product(int productID, String productName, double productPrice, int quantity, String color, String description, int categoryID) {
         this.productID = productID;
         this.productName = productName;

@@ -15,32 +15,35 @@
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
 
+<div style="margin: 10px">
+    <h2>Product Management </h2>
+    <button type="button" onclick="location.href='/product_servlet?action=show-add'" class="btn btn-primary">Add Product</button>
 
-<h2>Product Management </h2>
-<button type="button" onclick="location.href='/product_servlet?action=show-add'">Add Product</button>
+    <h3>Find Product</h3>
+    <form action="product_servlet?action=find-product" method="post">
+        <label for="productName">Name</label>
+        <input type="text" id="productName"  name="name">
 
-<h3>Find Product</h3>
-<form action="product_servlet?action=find-product" method="post">
-    <label for="productName">Name</label>
-    <input type="text" id="productName"  name="name">
+        <label for="price" class="form-label">Price</label>
+        <input type="number" id="price" name="price">
 
-    <label for="price" class="form-label">Price</label>
-    <input type="number" id="price" name="price">
+        <label for="quantity" >Quantity</label>
+        <input type="number" id="quantity"  name="quantity" >
 
-    <label for="quantity" >Quantity</label>
-    <input type="number" id="quantity"  name="quantity" >
+        <label for="color" >Color</label>
+        <input type="text" id="color" name="color" >
 
-    <label for="color" >Color</label>
-    <input type="text" id="color" name="color" >
-
-    <label for="category" >Category</label>
-    <input type="text" id="category"  name="Category" >
+        <label for="category" >Category</label>
+        <input type="text" id="category"  name="category" >
 
 
-    <button class="btn btn-secondary" type="reset">Reset</button>
-    |
-    <button class="btn btn-success" type="submit">Search</button>
-</form>
+        <button class="btn btn-secondary" type="reset">Reset</button>
+        |
+        <button class="btn btn-success" type="submit">Search</button>
+    </form>
+</div>
+
+
 
 <table class="table table-striped ">
     <thead>
@@ -59,7 +62,9 @@
         <tr>
             <td>${loop.count}</td>
             <td>${pro.productName}</td>
-            <td>${pro.productPrice}</td>
+            <td>
+                <fmt:formatNumber type="currency" value="${pro.productPrice}" />
+            </td>
             <td>${pro.quantity}</td>
             <td>${pro.color}</td>
             <td>${pro.getCategoryName(pro.categoryID)}</td>

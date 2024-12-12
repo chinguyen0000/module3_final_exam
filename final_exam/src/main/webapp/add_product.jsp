@@ -27,7 +27,7 @@
         <input type="text" id="productName" class="form-control" name="name" required>
         <br>
         <label for="price" class="form-label">Price</label>
-        <input type="number" id="price" class="form-control" name="price" required min="10000000">
+        <input type="number" id="price" class="form-control" name="price" required min="10000001" >
         <br>
         <label for="quantity" class="form-label">Quantity</label>
         <input type="number" id="quantity" class="form-control" name="quantity" required min="1">

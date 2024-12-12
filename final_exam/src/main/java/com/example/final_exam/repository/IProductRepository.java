@@ -11,6 +11,6 @@ public interface IProductRepository {
     String getCategoryName(int id);
     boolean saveProduct(Product product);
     boolean removeProduct(int id);
-    Product findProduct(String name, double price, int quantity, String color, int categoryID);
+    List<Product> findProduct(String name, double price, int quantity, String color, int categoryID);
 
 }
